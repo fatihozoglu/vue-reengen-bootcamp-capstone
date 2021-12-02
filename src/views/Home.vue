@@ -1,17 +1,22 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld />
+    <Login />
   </div>
 </template>
 
 <script>
-import HelloWorld from "@/components/HelloWorld.vue";
+import Login from "@/components/Login.vue";
 
 export default {
   name: "Home",
   components: {
-    HelloWorld,
+    Login,
   },
 };
 </script>
+
+<style scoped>
+.home {
+  min-height: 100vh;
+}
+</style>
