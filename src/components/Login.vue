@@ -29,9 +29,9 @@
                 data-type="password"
               />
             </div>
-            <div class="group">
-              <input id="check" type="checkbox" class="check" checked />
-              <label for="check"><span class="icon"></span> Remember me</label>
+            <div class="group checkbox">
+              <input id="check" type="checkbox" class="check" />
+              <label for="check">Remember me</label>
             </div>
             <div class="group">
               <button class="button">Sign In</button>
@@ -107,8 +107,7 @@ export default {
   transition: all 0.4s linear;
 }
 .login-html .sign-in,
-.login-html .sign-up,
-.login-form .group .check {
+.login-html .sign-up {
   display: none;
 }
 .login-html .tab {
@@ -122,6 +121,7 @@ export default {
 .login-html .sign-up:checked + .tab {
   color: #fff;
   border-color: #1161ee;
+  transform: scale(1.1);
 }
 .login-form {
   min-height: 345px;
@@ -165,45 +165,8 @@ export default {
 .login-form .group .button:hover {
   background: #0d49b1;
 }
-.login-form .group label .icon {
-  width: 15px;
-  height: 15px;
-  border-radius: 2px;
-  position: relative;
-  display: inline-block;
-  background: rgba(255, 255, 255, 0.1);
-}
-.login-form .group label .icon:before,
-.login-form .group label .icon:after {
-  content: "";
-  width: 10px;
-  height: 2px;
-  background: #fff;
-  position: absolute;
-  transition: all 0.2s ease-in-out 0s;
-}
-.login-form .group label .icon:before {
-  left: 3px;
-  width: 5px;
-  bottom: 6px;
-  transform: scale(0) rotate(0);
-}
-.login-form .group label .icon:after {
-  top: 6px;
-  right: 0;
-  transform: scale(0) rotate(0);
-}
 .login-form .group .check:checked + label {
   color: #fff;
-}
-.login-form .group .check:checked + label .icon {
-  background: #1161ee;
-}
-.login-form .group .check:checked + label .icon:before {
-  transform: scale(1) rotate(45deg);
-}
-.login-form .group .check:checked + label .icon:after {
-  transform: scale(1) rotate(-45deg);
 }
 .login-html
   .sign-in:checked
@@ -225,5 +188,16 @@ export default {
 }
 .mt-20 {
   margin-top: 40px;
+}
+.checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+input[type="checkbox"] {
+  margin-right: 10px;
+}
+input {
+  font-size: 18px;
 }
 </style>
