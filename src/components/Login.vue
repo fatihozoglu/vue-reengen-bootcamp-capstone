@@ -1,67 +1,21 @@
 <template>
-  <div class="container">
-    <div class="login-wrap">
-      <div class="login-html">
-        <input
-          id="tab-1"
-          type="radio"
-          name="tab"
-          class="sign-in"
-          checked
-        /><label for="tab-1" class="tab">Sign In</label>
-        <input id="tab-2" type="radio" name="tab" class="sign-up" /><label
-          for="tab-2"
-          class="tab"
-          >Sign Up</label
-        >
-        <div class="login-form">
-          <div class="sign-in-htm">
-            <div class="group">
-              <label for="email-in" class="label">Email</label>
-              <input id="email-in" type="email" class="input" />
-            </div>
-            <div class="group">
-              <label for="pass" class="label">Password</label>
-              <input
-                id="pass"
-                type="password"
-                class="input"
-                data-type="password"
-              />
-            </div>
-            <div class="group checkbox">
-              <input id="check" type="checkbox" class="check" />
-              <label for="check">Remember me</label>
-            </div>
-            <div class="group">
-              <button class="button">Sign In</button>
-            </div>
-          </div>
-          <div class="sign-up-htm">
-            <div class="group">
-              <label for="name" class="label">Name</label>
-              <input id="name" type="text" class="input" />
-            </div>
-            <div class="group">
-              <label for="email-up" class="label">Email</label>
-              <input id="email-up" type="email" class="input" />
-            </div>
-            <div class="group">
-              <label for="password" class="label">Password</label>
-              <input
-                id="password"
-                type="password"
-                class="input"
-                data-type="password"
-              />
-            </div>
-            <div class="group">
-              <button class="button mt-20">Sign Up</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="login-container">
+    <form>
+      <h3></h3>
+
+      <label for="email">Email</label>
+      <input type="email" placeholder="Email" id="email" />
+
+      <label for="password">Password</label>
+      <input type="password" placeholder="Password" id="password" />
+
+      <label for="remember" class="textbox-label">
+        <input type="checkbox" id="remember" />
+        <span>Remember me</span>
+      </label>
+
+      <button>Log In</button>
+    </form>
   </div>
 </template>
 
@@ -73,131 +27,76 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.container {
-  width: 100%;
-  height: 100vh;
-  background: #2a3a66;
-}
-.login-wrap {
-  color: rgb(168, 168, 168);
-  height: 100%;
-  margin: auto;
-  max-width: 525px;
-  position: relative;
-  box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24),
-    0 17px 50px 0 rgba(0, 0, 0, 0.19);
-  text-align: center;
-}
-.login-html {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  padding: 90px 70px 50px 70px;
-  background: rgba(40, 57, 101, 0.9);
-}
-.login-html .sign-in-htm,
-.login-html .sign-up-htm {
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  position: absolute;
-  transform: rotateY(180deg);
-  backface-visibility: hidden;
-  transition: all 0.4s linear;
-}
-.login-html .sign-in,
-.login-html .sign-up {
-  display: none;
-}
-.login-html .tab {
-  font-size: 22px;
-  padding-bottom: 5px;
-  margin: 0 20px 10px 0;
-  display: inline-block;
-  border-bottom: 2px solid transparent;
-}
-.login-html .sign-in:checked + .tab,
-.login-html .sign-up:checked + .tab {
-  color: #fff;
-  border-color: #1161ee;
-  transform: scale(1.1);
-}
-.login-form {
-  min-height: 345px;
-  position: relative;
-  perspective: 1000px;
-  transform-style: preserve-3d;
-}
-.login-form .group {
-  margin-bottom: 15px;
-}
-.login-form .group .label,
-.login-form .group .input,
-.login-form .group .button {
-  width: 100%;
-  color: #fff;
-  display: block;
-}
-.login-form .group .input,
-.login-form .group .button {
-  border: none;
-  padding: 15px 20px;
-  border-radius: 25px;
-  background: rgba(255, 255, 255, 0.1);
-}
-.login-form .group input[data-type="password"] {
-  -webkit-text-security: circle;
-}
-.login-form .group .label {
-  font-weight: 500;
-  font-size: 16px;
-  margin-bottom: 5px;
-  padding-inline-start: 10px;
-  color: rgb(209, 209, 209);
-  text-align: start;
-}
-.login-form .group .button {
-  background: #1161ee;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-}
-.login-form .group .button:hover {
-  background: #0d49b1;
-}
-.login-form .group .check:checked + label {
-  color: #fff;
-}
-.login-html
-  .sign-in:checked
-  + .tab
-  + .sign-up
-  + .tab
-  + .login-form
-  .sign-in-htm {
-  transform: rotate(0);
-}
-.login-html .sign-up:checked + .tab + .login-form .sign-up-htm {
-  transform: rotate(0);
-}
-.foot-lnk {
-  text-align: center;
-}
-.login-form {
-  margin-top: 20px;
-}
-.mt-20 {
-  margin-top: 40px;
-}
-.checkbox {
+.login-container {
+  width: 100vw;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-input[type="checkbox"] {
-  margin-right: 10px;
+form {
+  flex-basis: 350px;
+  background-color: rgba(255, 255, 255, 0.13);
+  border-radius: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  padding: 50px 30px;
+}
+form * {
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  outline: none;
+  border: none;
+}
+form h3 {
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 42px;
+  text-align: center;
+}
+label {
+  display: block;
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: 500;
 }
 input {
-  font-size: 18px;
+  display: block;
+  height: 40px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.07);
+  border-radius: 3px;
+  padding: 0 10px;
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 300;
+}
+::placeholder {
+  color: #e5e5e5;
+}
+button {
+  margin-top: 40px;
+  width: 100%;
+  background-color: var(--secondary);
+  color: white;
+  padding: 15px 0;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.textbox-label {
+  width: max-content;
+  display: flex;
+  align-items: center;
+}
+.textbox-label > span {
+  font-size: 14px;
+  font-weight: 300;
+  margin-left: 10px;
+}
+.textbox-label > input {
+  margin: 0;
+  width: 15px;
+  height: 15px;
 }
 </style>

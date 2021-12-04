@@ -5,7 +5,10 @@
 </template>
 
 <style>
-body,
+:root {
+  --primary: #1a2035;
+  --secondary: #1163cc;
+}
 *,
 :after,
 :before {
@@ -13,7 +16,10 @@ body,
   padding: 0;
   box-sizing: border-box;
 }
+body {
+  background-color: var(--primary);
+}
 #app {
-  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
 }
 </style>
