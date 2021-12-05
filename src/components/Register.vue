@@ -1,0 +1,105 @@
+<template>
+  <div class="login-container">
+    <form>
+      <h3></h3>
+
+      <label for="username">Username</label>
+      <input type="text" placeholder="Username" id="username" />
+
+      <label for="email">Email</label>
+      <input type="email" placeholder="Email" id="email" />
+
+      <label for="password">Password</label>
+      <input type="password" placeholder="Password" id="password" />
+
+      <label for="remember" class="textbox-label">
+        <input type="checkbox" id="remember" />
+        <span>Remember me</span>
+      </label>
+
+      <button>Register</button>
+    </form>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "Register",
+};
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+.login-container {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+form {
+  flex-basis: 350px;
+  background-color: rgba(255, 255, 255, 0.13);
+  border-radius: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  padding: 50px 30px;
+}
+form * {
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  outline: none;
+  border: none;
+}
+form h3 {
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 42px;
+  text-align: center;
+}
+label {
+  display: block;
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: 500;
+}
+input {
+  display: block;
+  height: 40px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.07);
+  border-radius: 3px;
+  padding: 0 10px;
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 300;
+}
+::placeholder {
+  color: #e5e5e5;
+}
+button {
+  margin-top: 40px;
+  width: 100%;
+  background-color: var(--secondary);
+  color: white;
+  padding: 15px 0;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.textbox-label {
+  width: max-content;
+  display: flex;
+  align-items: center;
+}
+.textbox-label > span {
+  font-size: 14px;
+  font-weight: 300;
+  margin-left: 10px;
+}
+.textbox-label > input {
+  margin: 0;
+  width: 15px;
+  height: 15px;
+}
+</style>
