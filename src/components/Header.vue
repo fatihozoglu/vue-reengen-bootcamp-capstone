@@ -1,6 +1,9 @@
 <template>
   <header>
-    <router-link class="link" :to="{ name: 'Login' }">Login</router-link>
+    <router-link class="logo" :to="{ name: 'Home' }">
+      <img class="logo" src="../assets/logo.png" alt="Logo" />
+    </router-link>
+    <router-link class="link" :to="{ name: 'Login' }">Log in</router-link>
     <router-link class="link" :to="{ name: 'Register' }">Register</router-link>
     <select name="language" id="language">
       <option value="en">en</option>
@@ -20,13 +23,19 @@ export default {
 <style scoped>
 header {
   width: 100%;
-  height: 10vh;
+  min-height: 10vh;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 1rem;
   padding: 0 50px;
   box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.2);
+}
+.logo {
+  height: 90%;
+  display: flex;
+  align-items: center;
+  margin-right: auto;
 }
 .link {
   text-decoration: none;
