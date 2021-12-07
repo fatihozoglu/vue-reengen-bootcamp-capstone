@@ -20,7 +20,7 @@ export default {
 <style>
 :root {
   --primary: #1a2035;
-  --secondary: #1163cc;
+  --secondary: #00a100;
 }
 *,
 :after,
