@@ -1,18 +1,17 @@
 <template>
-  <div class="home">
-    <Login />
-  </div>
+  <div class="home"></div>
 </template>
 
 <script>
-import Login from "@/components/Login.vue";
-
 export default {
   name: "Home",
-  components: {
-    Login,
-  },
+  props: {},
 };
 </script>
 
-<style scoped></style>
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+.home {
+  height: 90vh;
+}
+</style>

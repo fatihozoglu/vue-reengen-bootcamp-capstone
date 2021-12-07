@@ -1,8 +1,21 @@
 <template>
   <div id="app">
+    <Header></Header>
     <router-view />
   </div>
 </template>
+
+<script>
+import Header from "./components/Header.vue";
+
+export default {
+  name: "App",
+  components: {
+    Header,
+  },
+  props: {},
+};
+</script>
 
 <style>
 :root {
@@ -21,5 +34,6 @@ body {
 }
 #app {
   font-family: "Poppins", sans-serif;
+  color: #fff;
 }
 </style>
