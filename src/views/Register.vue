@@ -12,9 +12,12 @@
       <label for="password">Password</label>
       <input type="password" placeholder="Password" id="password" />
 
-      <label for="remember" class="textbox-label">
-        <input type="checkbox" id="remember" />
-        <span>Remember me</span>
+      <label for="userStatus"
+        >User Status
+        <select class="d-block" name="userStatus" id="userStatus">
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+        </select>
       </label>
 
       <button>Register</button>
@@ -41,7 +44,7 @@ form {
   background-color: rgba(255, 255, 255, 0.13);
   border-radius: 8px;
   border: 2px solid rgba(255, 255, 255, 0.1);
-  padding: 50px 30px;
+  padding: 20px 30px;
 }
 form * {
   color: #ffffff;
@@ -61,7 +64,8 @@ label {
   font-size: 16px;
   font-weight: 500;
 }
-input {
+input,
+select {
   display: block;
   height: 40px;
   width: 100%;
@@ -78,7 +82,7 @@ input {
 button {
   margin-top: 40px;
   width: 100%;
-  background-color: var(--primary);
+  background-color: var(--light);
   color: white;
   padding: 15px 0;
   font-size: 16px;
@@ -88,7 +92,7 @@ button {
   transition: 0.5s;
 }
 button:hover {
-  background-color: var(--secondary);
+  background-color: var(--primary);
 }
 .textbox-label {
   width: max-content;

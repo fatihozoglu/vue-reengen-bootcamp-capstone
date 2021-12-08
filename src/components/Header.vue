@@ -1,15 +1,40 @@
 <template>
-  <header>
-    <router-link class="logo" :to="{ name: 'Home' }">
-      <img class="logo" src="../assets/logo.png" alt="Logo" />
-    </router-link>
-    <router-link class="link" :to="{ name: 'Login' }">Log in</router-link>
-    <router-link class="link" :to="{ name: 'Register' }">Register</router-link>
-    <select name="language" id="language">
-      <option value="en">en</option>
-      <option value="tr">tr</option>
-    </select>
-  </header>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <router-link :to="{ name: 'Home' }">
+        <img src="../assets/logo.png" alt="Logo" />
+      </router-link>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+          <li class="nav-item">
+            <router-link class="nav-link" :to="{ name: 'Login' }"
+              >Log in</router-link
+            >
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" :to="{ name: 'Register' }"
+              >Register</router-link
+            >
+          </li>
+          <select class="ms-lg-4" name="language" id="language">
+            <option value="en">en</option>
+            <option value="tr">tr</option>
+          </select>
+        </ul>
+      </div>
+    </div>
+  </nav>
 </template>
 
 <script>
@@ -21,39 +46,19 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-header {
-  width: 100%;
+.navbar {
+  background-color: var(--primary);
   min-height: 10vh;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 1rem;
-  padding: 0 50px;
+  padding: 0 30px;
   box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.2);
 }
-.logo {
-  height: 90%;
-  display: flex;
-  align-items: center;
-  margin-right: auto;
-}
-.link {
-  text-decoration: none;
-  color: #fff;
-  padding: 8px 15px;
-  border: 1px solid white;
-  border-radius: 8px;
-  transition: 0.5s;
-}
-.link:hover {
-  background: var(--secondary);
-}
 #language {
+  height: 25px;
+  width: max-content;
   font-size: 0.8rem;
-  padding: 5px 5px;
   border: 1px solid #fff;
-  border-radius: 8px;
-  background: var(--primary);
+  border-radius: 4px;
+  background: var(--light);
   color: #fff;
   cursor: pointer;
 }

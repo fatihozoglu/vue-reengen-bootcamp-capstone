@@ -75,7 +75,7 @@ input {
 button {
   margin-top: 40px;
   width: 100%;
-  background-color: var(--primary);
+  background-color: var(--light);
   color: white;
   padding: 15px 0;
   font-size: 16px;
@@ -85,7 +85,7 @@ button {
   transition: 0.5s;
 }
 button:hover {
-  background-color: var(--secondary);
+  background-color: var(--primary);
 }
 .textbox-label {
   width: max-content;
