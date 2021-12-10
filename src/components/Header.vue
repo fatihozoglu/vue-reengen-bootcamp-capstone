@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark">
+  <nav class="navbar navbar-expand-sm navbar-dark">
     <div class="container-fluid">
       <router-link :to="{ name: 'Home' }">
         <img src="../assets/logo.png" alt="Logo" />
@@ -16,18 +16,8 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'Login' }"
-              >Log in</router-link
-            >
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'Register' }"
-              >Register</router-link
-            >
-          </li>
-          <select class="ms-lg-4" name="language" id="language">
+        <ul class="navbar-nav ms-auto mb-2 mb-sm-0 align-items-sm-center">
+          <select class="mt-2 mt-sm-0 ms-sm-4" name="language" id="language">
             <option value="en">en</option>
             <option value="tr">tr</option>
           </select>
@@ -49,17 +39,17 @@ export default {
 .navbar {
   background-color: var(--primary);
   min-height: 10vh;
-  padding: 0 30px;
-  box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.2);
+  padding-inline: 30px;
+  box-shadow: 0px 2px 0px 0px rgba(73, 73, 73, 0.2);
 }
 #language {
   height: 25px;
   width: max-content;
   font-size: 0.8rem;
-  border: 1px solid #fff;
+  border: 1px solid #989aa4;
   border-radius: 4px;
   background: var(--light);
-  color: #fff;
+  color: #989aa4;
   cursor: pointer;
 }
 </style>
