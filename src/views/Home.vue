@@ -9,8 +9,10 @@
         decisions.
       </p>
       <div class="btn-container">
-        <router-link class="btn" :to="{ name: 'Login' }">Log in</router-link>
-        <router-link class="btn" :to="{ name: 'Register' }"
+        <router-link class="btn btn-login" :to="{ name: 'Login' }"
+          >Log in</router-link
+        >
+        <router-link class="btn btn-register" :to="{ name: 'Register' }"
           >Register</router-link
         >
       </div>
@@ -34,10 +36,10 @@ export default {
   grid-template-columns: 1fr 1fr;
   column-gap: 50px;
   align-items: center;
-  padding-inline: 80px;
+  padding-inline: 5vw;
 }
 h1 {
-  font-size: 3rem;
+  font-size: clamp(2rem, 3vw, 5rem);
   font-weight: 600;
 }
 p {
@@ -68,12 +70,28 @@ p {
   font-weight: 600;
   transition: 0.5s;
 }
-.btn:hover {
+.btn-register {
   background-color: var(--secondary);
+}
+.btn-login:hover {
+  background-color: var(--secondary);
+}
+.btn-register:hover {
+  background-color: var(--primary);
 }
 .home-image {
   width: 100%;
   height: auto;
   grid-column-start: 2;
+}
+
+@media screen and (max-width: 730px) {
+  .home {
+    grid-template-columns: 1fr;
+    padding-top: 30px;
+  }
+  .home-image {
+    grid-column-start: 1;
+  }
 }
 </style>
