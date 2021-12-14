@@ -17,6 +17,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mb-2 mb-sm-0 align-items-sm-center">
+          <UserModal v-if="user" />
           <select class="mt-2 mt-sm-0 ms-sm-4" name="language" id="language">
             <option value="en">en</option>
             <option value="tr">tr</option>
@@ -28,9 +29,17 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+import UserModal from "./UserModal.vue";
+
 export default {
   name: "Header",
-  props: {},
+  components: {
+    UserModal,
+  },
+  computed: {
+    ...mapState(["user"]),
+  },
 };
 </script>
 
