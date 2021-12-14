@@ -18,8 +18,10 @@ export default {
     ...mapMutations(["SET_USER"]),
   },
   created() {
-    localStorage.getItem("user") &&
+    if (localStorage.getItem("user")) {
       this.SET_USER(JSON.parse(localStorage.getItem("user")));
+      this.$router.push({ name: "Dashboard" });
+    }
   },
 };
 </script>
