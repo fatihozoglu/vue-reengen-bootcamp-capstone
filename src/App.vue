@@ -22,6 +22,10 @@ export default {
       this.SET_USER(JSON.parse(localStorage.getItem("user")));
       this.$router.push({ name: "Dashboard" });
     }
+    if (sessionStorage.getItem("user")) {
+      this.SET_USER(JSON.parse(sessionStorage.getItem("user")));
+      this.$router.push({ name: "Dashboard" });
+    }
   },
 };
 </script>
