@@ -14,16 +14,20 @@
           alt="user avatar"
         />
         <div class="header-side">
-          <p class="username">Username</p>
-          <p class="email">Email@email.com</p>
+          <p class="username">{{ user.username }}</p>
+          <p class="email">{{ user.email }}</p>
           <div @click="goSettings" class="link">Settings</div>
         </div>
       </div>
+      <hr />
+      <div class="logout" @click="logout">Logout</div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapMutations, mapState } from "vuex";
+
 export default {
   name: "UserModal",
   data() {
@@ -31,13 +35,23 @@ export default {
       isOpen: false,
     };
   },
+  computed: {
+    ...mapState(["user"]),
+  },
   methods: {
+    ...mapMutations(["SET_USER"]),
     toggleModal() {
       this.isOpen = !this.isOpen;
     },
     goSettings() {
       this.toggleModal();
       this.$router.push({ name: "Settings" });
+    },
+    logout() {
+      this.toggleModal();
+      localStorage.removeItem("user");
+      this.SET_USER(null);
+      this.$router.push({ name: "Home" });
     },
   },
 };
@@ -100,5 +114,16 @@ export default {
 }
 .link:hover {
   background-color: green;
+}
+.logout {
+  padding: 5px 10px;
+  border-radius: 4px;
+  color: white;
+  background-color: var(--primary);
+  text-align: center;
+  cursor: pointer;
+}
+.logout:hover {
+  background-color: var(--light);
 }
 </style>

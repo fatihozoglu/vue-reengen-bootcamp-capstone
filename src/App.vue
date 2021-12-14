@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 import Header from "./components/Header.vue";
 
 export default {
@@ -13,7 +14,13 @@ export default {
   components: {
     Header,
   },
-  props: {},
+  methods: {
+    ...mapMutations(["SET_USER"]),
+  },
+  created() {
+    localStorage.getItem("user") &&
+      this.SET_USER(JSON.parse(localStorage.getItem("user")));
+  },
 };
 </script>
 
