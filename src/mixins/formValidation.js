@@ -5,7 +5,7 @@ const checkPassword = (val) => {
   return reg.test(val);
 };
 
-export const registerValidation = {
+export const formValidation = {
   validations: {
     user: {
       username: {

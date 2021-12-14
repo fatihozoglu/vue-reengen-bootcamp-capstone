@@ -90,7 +90,7 @@
 
 <script>
 import { mapActions } from "vuex";
-import { registerValidation } from "../mixins/registerValidation";
+import { formValidation } from "../mixins/formValidation";
 
 export default {
   name: "Register",
@@ -104,7 +104,7 @@ export default {
       },
     };
   },
-  mixins: [registerValidation],
+  mixins: [formValidation],
   methods: {
     ...mapActions(["register"]),
     checkFormValidation() {
@@ -116,8 +116,8 @@ export default {
       }
     },
     submit() {
-      let valid = this.checkFormValidation();
-      if (valid) {
+      let isValid = this.checkFormValidation();
+      if (isValid) {
         this.register(this.user).then(() => {
           this.$router.push({ name: "Dashboard" });
         });

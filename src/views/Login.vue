@@ -4,15 +4,47 @@
       <h3></h3>
 
       <label for="email">Email</label>
-      <input v-model="user.email" type="email" placeholder="Email" id="email" />
+      <input
+        :class="{
+          errorborder: $v.user.email.$error,
+        }"
+        v-model.trim="$v.user.email.$model"
+        type="email"
+        placeholder="Email"
+        id="email"
+      />
+      <div
+        class="error-message"
+        v-if="!$v.user.email.required && $v.user.email.$dirty"
+      >
+        Email is required
+      </div>
+      <div class="error-message" v-if="!$v.user.email.email">
+        Please enter a valid email
+      </div>
 
       <label for="password">Password</label>
       <input
-        v-model="user.password"
+        :class="{
+          errorborder: $v.user.password.$error,
+        }"
+        v-model.trim="$v.user.password.$model"
         type="password"
         placeholder="Password"
         id="password"
       />
+      <div
+        class="error-message"
+        v-if="!$v.user.password.required && $v.user.password.$dirty"
+      >
+        Password is required
+      </div>
+      <div
+        class="error-message"
+        v-else-if="!$v.user.password.checkPassword && $v.user.password.$dirty"
+      >
+        Min. 8 characters (min. 1 lowercase, 1 uppercase and 1 number)
+      </div>
 
       <label for="remember" class="textbox-label">
         <input v-model="remember" type="checkbox" id="remember" />
@@ -26,6 +58,7 @@
 
 <script>
 import { mapActions, mapMutations } from "vuex";
+import { formValidation } from "../mixins/formValidation";
 
 export default {
   name: "Login",
@@ -38,14 +71,26 @@ export default {
       remember: false,
     };
   },
+  mixins: [formValidation],
   methods: {
     ...mapActions(["login"]),
     ...mapMutations(["SET_REMEMBER"]),
+    checkFormValidation() {
+      if (this.$v.$dirty && !this.$v.$invalid) {
+        return true;
+      } else {
+        this.$v.$touch();
+        return false;
+      }
+    },
     submit() {
-      this.login(this.user).then(() => {
-        this.SET_REMEMBER(this.remember);
-        this.$router.push({ name: "Dashboard" });
-      });
+      let isValid = this.checkFormValidation();
+      if (isValid) {
+        this.login(this.user).then(() => {
+          this.SET_REMEMBER(this.remember);
+          this.$router.push({ name: "Dashboard" });
+        });
+      }
     },
   },
 };
@@ -127,5 +172,14 @@ button:hover {
   margin: 0;
   width: 15px;
   height: 15px;
+}
+.errorborder {
+  border: 1px solid rgb(255, 72, 72);
+}
+.error-message {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 200;
+  color: rgb(255, 72, 72);
 }
 </style>
