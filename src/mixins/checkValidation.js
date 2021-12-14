@@ -1,4 +1,4 @@
-const checkValidation = {
+export default {
   methods: {
     checkFormValidation() {
       if (this.$v.$dirty && !this.$v.$invalid) {
@@ -10,5 +10,3 @@ const checkValidation = {
     },
   },
 };
-
-export default checkValidation;

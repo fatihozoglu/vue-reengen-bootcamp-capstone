@@ -58,9 +58,8 @@
 
 <script>
 import { mapActions, mapMutations } from "vuex";
-import { formValidation } from "../mixins/formValidation";
+import { formValidation } from "../mixins/loginValidation";
 import checkValidation from "../mixins/checkValidation";
-
 export default {
   name: "Login",
   data() {

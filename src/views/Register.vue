@@ -90,7 +90,7 @@
 
 <script>
 import { mapActions } from "vuex";
-import { formValidation } from "../mixins/formValidation";
+import { formValidation } from "../mixins/registerValidation";
 import checkValidation from "../mixins/checkValidation";
 
 export default {
