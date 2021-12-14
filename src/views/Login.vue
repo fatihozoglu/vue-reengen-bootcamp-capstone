@@ -44,7 +44,7 @@ export default {
     submit() {
       this.login(this.user).then(() => {
         this.SET_REMEMBER(this.remember);
-        this.$router.push({ name: "Home" });
+        this.$router.push({ name: "Dashboard" });
       });
     },
   },

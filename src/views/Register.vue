@@ -54,7 +54,7 @@ export default {
     ...mapActions(["register"]),
     submit() {
       this.register(this.user).then(() => {
-        this.$router.push({ name: "Home" });
+        this.$router.push({ name: "Dashboard" });
       });
     },
   },
