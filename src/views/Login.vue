@@ -59,6 +59,7 @@
 <script>
 import { mapActions, mapMutations } from "vuex";
 import { formValidation } from "../mixins/formValidation";
+import checkValidation from "../mixins/checkValidation";
 
 export default {
   name: "Login",
@@ -71,18 +72,10 @@ export default {
       remember: false,
     };
   },
-  mixins: [formValidation],
+  mixins: [formValidation, checkValidation],
   methods: {
     ...mapActions(["login"]),
     ...mapMutations(["SET_REMEMBER"]),
-    checkFormValidation() {
-      if (this.$v.$dirty && !this.$v.$invalid) {
-        return true;
-      } else {
-        this.$v.$touch();
-        return false;
-      }
-    },
     submit() {
       let isValid = this.checkFormValidation();
       if (isValid) {
