@@ -1,33 +1,63 @@
 <template>
   <div class="login-container">
-    <form>
+    <form @submit.prevent="submit">
       <h3></h3>
 
       <label for="username">Username</label>
-      <input type="text" placeholder="Username" id="username" />
+      <input
+        v-model="user.username"
+        type="text"
+        placeholder="Username"
+        id="username"
+      />
 
       <label for="email">Email</label>
-      <input type="email" placeholder="Email" id="email" />
+      <input v-model="user.email" type="email" placeholder="Email" id="email" />
 
       <label for="password">Password</label>
-      <input type="password" placeholder="Password" id="password" />
+      <input
+        v-model="user.password"
+        type="password"
+        placeholder="Password"
+        id="password"
+      />
 
-      <label for="userStatus"
-        >User Status
-        <select class="d-block" name="userStatus" id="userStatus">
+      <label for="role"
+        >User Role
+        <select v-model="user.role" class="d-block" name="role" id="role">
           <option value="user">User</option>
           <option value="admin">Admin</option>
         </select>
       </label>
 
-      <button>Register</button>
+      <button type="submit">Register</button>
     </form>
   </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "Register",
+  data() {
+    return {
+      user: {
+        username: null,
+        email: null,
+        password: null,
+        role: "user",
+      },
+    };
+  },
+  methods: {
+    ...mapActions(["register"]),
+    submit() {
+      this.register(this.user).then(() => {
+        this.$router.push({ name: "Home" });
+      });
+    },
+  },
 };
 </script>
 

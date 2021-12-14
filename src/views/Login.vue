@@ -1,27 +1,53 @@
 <template>
   <div class="login-container">
-    <form>
+    <form @submit.prevent="submit">
       <h3></h3>
 
       <label for="email">Email</label>
-      <input type="email" placeholder="Email" id="email" />
+      <input v-model="user.email" type="email" placeholder="Email" id="email" />
 
       <label for="password">Password</label>
-      <input type="password" placeholder="Password" id="password" />
+      <input
+        v-model="user.password"
+        type="password"
+        placeholder="Password"
+        id="password"
+      />
 
       <label for="remember" class="textbox-label">
-        <input type="checkbox" id="remember" />
+        <input v-model="remember" type="checkbox" id="remember" />
         <span>Remember me</span>
       </label>
 
-      <button>Log In</button>
+      <button type="submit">Log In</button>
     </form>
   </div>
 </template>
 
 <script>
+import { mapActions, mapMutations } from "vuex";
+
 export default {
   name: "Login",
+  data() {
+    return {
+      user: {
+        email: null,
+        password: null,
+      },
+      remember: false,
+    };
+  },
+  methods: {
+    ...mapActions(["login"]),
+    ...mapMutations(["SET_REMEMBER"]),
+    submit() {
+      this.login(this.user).then(() => {
+        this.SET_REMEMBER(this.remember);
+        this.$router.push({ name: "Home" });
+      });
+    },
+  },
 };
 </script>
 
