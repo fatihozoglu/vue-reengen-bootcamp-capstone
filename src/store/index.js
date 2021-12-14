@@ -27,11 +27,7 @@ export default new Vuex.Store({
         .post("/register", payload)
         .then((res) => {
           context.commit("SET_USER", res.data);
-          if (!context.state.remember) {
-            sessionStorage.setItem("user", JSON.stringify(res.data));
-          } else {
-            localStorage.setItem("user", JSON.stringify(res.data));
-          }
+          localStorage.setItem("user", JSON.stringify(res.data));
         })
         .catch((err) => console.log(err.response));
     },
@@ -40,11 +36,7 @@ export default new Vuex.Store({
         .post("/login", payload)
         .then((res) => {
           context.commit("SET_USER", res.data);
-          if (!context.state.remember) {
-            sessionStorage.setItem("user", JSON.stringify(res.data));
-          } else {
-            localStorage.setItem("user", JSON.stringify(res.data));
-          }
+          localStorage.setItem("user", JSON.stringify(res.data));
         })
         .catch((err) => console.log(err.response));
     },
