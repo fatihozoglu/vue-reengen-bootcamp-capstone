@@ -5,26 +5,79 @@
 
       <label for="username">Username</label>
       <input
-        v-model="user.username"
+        :class="{
+          errorborder: $v.user.username.$error,
+        }"
+        v-model.trim="$v.user.username.$model"
         type="text"
         placeholder="Username"
         id="username"
       />
+      <div
+        class="error-message"
+        v-if="!$v.user.username.required && $v.user.username.$dirty"
+      >
+        Username is required
+      </div>
+      <div class="error-message" v-if="!$v.user.username.minLength">
+        Username must have at least
+        {{ $v.user.username.$params.minLength.min }} letters.
+      </div>
+      <div class="error-message" v-if="!$v.user.username.alpha">
+        Username must contain only letters
+      </div>
 
       <label for="email">Email</label>
-      <input v-model="user.email" type="email" placeholder="Email" id="email" />
+      <input
+        :class="{
+          errorborder: $v.user.email.$error,
+        }"
+        v-model.trim="$v.user.email.$model"
+        type="email"
+        placeholder="Email"
+        id="email"
+      />
+      <div
+        class="error-message"
+        v-if="!$v.user.email.required && $v.user.email.$dirty"
+      >
+        Email is required
+      </div>
+      <div class="error-message" v-if="!$v.user.email.email">
+        Please enter a valid email
+      </div>
 
       <label for="password">Password</label>
       <input
-        v-model="user.password"
+        :class="{
+          errorborder: $v.user.password.$error,
+        }"
+        v-model.trim="$v.user.password.$model"
         type="password"
         placeholder="Password"
         id="password"
       />
+      <div
+        class="error-message"
+        v-if="!$v.user.password.required && $v.user.password.$dirty"
+      >
+        Password is required
+      </div>
+      <div
+        class="error-message"
+        v-else-if="!$v.user.password.checkPassword && $v.user.password.$dirty"
+      >
+        Min. 8 characters (min. 1 lowercase, 1 uppercase and 1 number)
+      </div>
 
       <label for="role"
         >User Role
-        <select v-model="user.role" class="d-block" name="role" id="role">
+        <select
+          v-model="user.role"
+          class="d-block form__input"
+          name="role"
+          id="role"
+        >
           <option value="user">User</option>
           <option value="admin">Admin</option>
         </select>
@@ -37,6 +90,7 @@
 
 <script>
 import { mapActions } from "vuex";
+import { registerValidation } from "../mixins/registerValidation";
 
 export default {
   name: "Register",
@@ -50,12 +104,24 @@ export default {
       },
     };
   },
+  mixins: [registerValidation],
   methods: {
     ...mapActions(["register"]),
+    checkFormValidation() {
+      if (this.$v.$dirty && !this.$v.$invalid) {
+        return true;
+      } else {
+        this.$v.$touch();
+        return false;
+      }
+    },
     submit() {
-      this.register(this.user).then(() => {
-        this.$router.push({ name: "Dashboard" });
-      });
+      let valid = this.checkFormValidation();
+      if (valid) {
+        this.register(this.user).then(() => {
+          this.$router.push({ name: "Dashboard" });
+        });
+      }
     },
   },
 };
@@ -138,5 +204,14 @@ button:hover {
   margin: 0;
   width: 15px;
   height: 15px;
+}
+.errorborder {
+  border: 1px solid rgb(255, 72, 72);
+}
+.error-message {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 200;
+  color: rgb(255, 72, 72);
 }
 </style>
