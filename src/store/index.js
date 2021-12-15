@@ -27,7 +27,7 @@ export default new Vuex.Store({
         .post("/register", payload)
         .then((res) => {
           context.commit("SET_USER", res.data);
-          localStorage.setItem("user", JSON.stringify(res.data));
+          sessionStorage.setItem("user", JSON.stringify(res.data));
           return Promise.resolve(res.data);
         })
         .catch((err) => {
@@ -39,7 +39,11 @@ export default new Vuex.Store({
         .post("/login", payload)
         .then((res) => {
           context.commit("SET_USER", res.data);
-          localStorage.setItem("user", JSON.stringify(res.data));
+          if (context.state.remember) {
+            localStorage.setItem("user", JSON.stringify(res.data));
+          } else {
+            sessionStorage.setItem("user", JSON.stringify(res.data));
+          }
           return Promise.resolve(res.status);
         })
         .catch((err) => {
@@ -50,7 +54,12 @@ export default new Vuex.Store({
       return httpClient
         .post("/check")
         .then((res) => {
-          context.commit("SET_USER", JSON.parse(localStorage.getItem("user")));
+          context.commit(
+            "SET_USER",
+            JSON.parse(
+              localStorage.getItem("user") || sessionStorage.getItem("user")
+            )
+          );
           return Promise.resolve(res.status);
         })
         .catch((err) => {

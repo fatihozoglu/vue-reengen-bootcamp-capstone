@@ -50,6 +50,7 @@ export default {
     logout() {
       this.toggleModal();
       localStorage.removeItem("user");
+      sessionStorage.removeItem("user");
       this.SET_USER(null);
       this.$router.push({ name: "Home" });
     },
@@ -104,7 +105,7 @@ export default {
   font-weight: 200;
 }
 .link {
-  width: max-content;
+  text-align: center;
   text-decoration: none;
   padding: 5px 10px;
   color: white;

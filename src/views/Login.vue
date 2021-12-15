@@ -68,8 +68,17 @@ export default {
         email: null,
         password: null,
       },
-      remember: false,
     };
+  },
+  computed: {
+    remember: {
+      get() {
+        return this.$store.state.remember;
+      },
+      set(value) {
+        this.$store.commit("SET_REMEMBER", value);
+      },
+    },
   },
   mixins: [formValidation, checkValidation],
   methods: {
@@ -80,7 +89,6 @@ export default {
       if (isValid) {
         this.login(this.user)
           .then(() => {
-            this.SET_REMEMBER(this.remember);
             this.$router.push({ name: "Dashboard" });
           })
           .catch((err) => {
