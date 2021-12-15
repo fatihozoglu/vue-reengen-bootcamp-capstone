@@ -8,6 +8,8 @@ export default new Vuex.Store({
   state: {
     user: null,
     remember: false,
+    factories: null,
+    units: null,
   },
   mutations: {
     SET_USER(state, payload) {
@@ -19,6 +21,12 @@ export default new Vuex.Store({
     },
     SET_REMEMBER(state, payload) {
       state.remember = payload;
+    },
+    SET_FACTORIES(state, payload) {
+      state.factories = payload;
+    },
+    SET_UNITS(state, payload) {
+      state.units = payload;
     },
   },
   actions: {
@@ -66,6 +74,22 @@ export default new Vuex.Store({
           context.commit("SET_USER", null);
           return Promise.reject(err.response.status);
         });
+    },
+    getAllFactories(context) {
+      httpClient
+        .get("/factories")
+        .then((res) => {
+          context.commit("SET_FACTORIES", res.data);
+        })
+        .catch((err) => console.log(err));
+    },
+    getUnits(context) {
+      httpClient
+        .get(`/units`)
+        .then((res) => {
+          context.commit("SET_UNITS", res.data);
+        })
+        .catch((err) => console.log(err));
     },
   },
   modules: {},
