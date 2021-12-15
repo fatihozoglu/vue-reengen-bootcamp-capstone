@@ -1,10 +1,10 @@
 <template>
   <nav class="navbar navbar-expand-sm navbar-dark">
-    <div class="container-fluid">
+    <div class="w-100 d-flex nav-container">
       <router-link :to="{ name: 'Home' }">
         <img src="../assets/logo.png" alt="Logo" />
       </router-link>
-      <ul class="m-0 d-flex align-items-center">
+      <ul class="m-0 ms-auto d-flex align-items-center justify-content-evenly">
         <div v-if="user" @click="goDashboard" class="dashboard-icon">
           <span>Dashboard</span>
           <svg width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
@@ -13,7 +13,7 @@
             />
           </svg>
         </div>
-        <UserModal class="ms-4" v-if="user" />
+        <UserModal class="ms-4 d-flex align-items-center" v-if="user" />
         <select class="ms-4" name="language" id="language">
           <option value="en">en</option>
           <option value="tr">tr</option>
@@ -80,10 +80,10 @@ export default {
   top: 8px;
 }
 .dashboard-icon:hover {
-  width: 150px;
+  width: 145px;
   background-color: var(--secondary);
 }
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 500px) {
   .dashboard-icon > span {
     display: none;
   }
@@ -91,6 +91,16 @@ export default {
     height: 40px;
     width: 40px;
     background-color: var(--secondary);
+  }
+  ul {
+    width: 100%;
+    margin-left: 0;
+    padding-left: 0;
+  }
+  .nav-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
   }
 }
 </style>
