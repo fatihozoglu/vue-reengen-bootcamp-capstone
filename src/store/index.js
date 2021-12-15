@@ -23,22 +23,40 @@ export default new Vuex.Store({
   },
   actions: {
     register(context, payload) {
-      httpClient
+      return httpClient
         .post("/register", payload)
         .then((res) => {
           context.commit("SET_USER", res.data);
           localStorage.setItem("user", JSON.stringify(res.data));
+          return Promise.resolve(res.data);
         })
-        .catch((err) => console.log(err.response));
+        .catch((err) => {
+          return Promise.reject(err.response.data);
+        });
     },
     login(context, payload) {
-      httpClient
+      return httpClient
         .post("/login", payload)
         .then((res) => {
           context.commit("SET_USER", res.data);
           localStorage.setItem("user", JSON.stringify(res.data));
+          return Promise.resolve(res.status);
         })
-        .catch((err) => console.log(err.response));
+        .catch((err) => {
+          return Promise.reject(err.response.data);
+        });
+    },
+    checkTokenValidity(context, payload) {
+      return httpClient
+        .post("/check", payload)
+        .then((res) => {
+          context.commit("SET_USER", JSON.parse(localStorage.getItem("user")));
+          return Promise.resolve(res.status);
+        })
+        .catch((err) => {
+          context.commit("SET_USER", null);
+          return Promise.reject(err.response.status);
+        });
     },
   },
   modules: {},

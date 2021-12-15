@@ -78,10 +78,14 @@ export default {
     submit() {
       let isValid = this.checkFormValidation();
       if (isValid) {
-        this.login(this.user).then(() => {
-          this.SET_REMEMBER(this.remember);
-          this.$router.push({ name: "Dashboard" });
-        });
+        this.login(this.user)
+          .then(() => {
+            this.SET_REMEMBER(this.remember);
+            this.$router.push({ name: "Dashboard" });
+          })
+          .catch((err) => {
+            alert(err);
+          });
       }
     },
   },

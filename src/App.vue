@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 import Header from "./components/Header.vue";
 
 export default {
@@ -16,12 +16,26 @@ export default {
   },
   methods: {
     ...mapMutations(["SET_USER"]),
+    ...mapActions(["checkTokenValidity"]),
+    clearLocalStorage() {
+      localStorage.clear();
+      this.SET_USER(null);
+    },
   },
-  created() {
+  mounted() {
     if (localStorage.getItem("user")) {
-      this.SET_USER(JSON.parse(localStorage.getItem("user")));
-      this.$router.push({ name: "Dashboard" });
+      let user = JSON.parse(localStorage.getItem("user"));
+      this.checkTokenValidity(user.token)
+        .then(() => {
+          this.$router.push({ name: "Dashboard" });
+        })
+        .catch(() => {
+          this.$router.push({ name: "Login" });
+        });
     }
+  },
+  destroyed() {
+    this.clearLocalStorage();
   },
 };
 </script>
