@@ -4,26 +4,21 @@
       <router-link :to="{ name: 'Home' }">
         <img src="../assets/logo.png" alt="Logo" />
       </router-link>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto mb-2 mb-sm-0 align-items-sm-center">
-          <UserModal v-if="user" />
-          <select class="mt-2 mt-sm-0 ms-sm-4" name="language" id="language">
-            <option value="en">en</option>
-            <option value="tr">tr</option>
-          </select>
-        </ul>
-      </div>
+      <ul class="m-0 d-flex align-items-center">
+        <div v-if="user" @click="goDashboard" class="dashboard-icon">
+          <span>Dashboard</span>
+          <svg width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+            <path
+              d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"
+            />
+          </svg>
+        </div>
+        <UserModal class="ms-4" v-if="user" />
+        <select class="ms-4" name="language" id="language">
+          <option value="en">en</option>
+          <option value="tr">tr</option>
+        </select>
+      </ul>
     </div>
   </nav>
 </template>
@@ -39,6 +34,11 @@ export default {
   },
   computed: {
     ...mapState(["user"]),
+  },
+  methods: {
+    goDashboard() {
+      this.$router.push({ name: "Dashboard" });
+    },
   },
 };
 </script>
@@ -60,5 +60,37 @@ export default {
   background: var(--light);
   color: #989aa4;
   cursor: pointer;
+}
+.dashboard-icon {
+  cursor: pointer;
+  position: relative;
+  height: 40px;
+  width: 40px;
+  transition: 0.5s;
+  border-radius: 8px;
+}
+.dashboard-icon > svg {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+}
+.dashboard-icon > span {
+  position: absolute;
+  right: 44px;
+  top: 8px;
+}
+.dashboard-icon:hover {
+  width: 150px;
+  background-color: var(--secondary);
+}
+@media screen and (max-width: 700px) {
+  .dashboard-icon > span {
+    display: none;
+  }
+  .dashboard-icon:hover {
+    height: 40px;
+    width: 40px;
+    background-color: var(--secondary);
+  }
 }
 </style>
