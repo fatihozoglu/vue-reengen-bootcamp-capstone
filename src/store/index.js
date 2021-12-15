@@ -46,9 +46,9 @@ export default new Vuex.Store({
           return Promise.reject(err.response.data);
         });
     },
-    checkTokenValidity(context, payload) {
+    checkTokenValidity(context) {
       return httpClient
-        .post("/check", payload)
+        .post("/check")
         .then((res) => {
           context.commit("SET_USER", JSON.parse(localStorage.getItem("user")));
           return Promise.resolve(res.status);
