@@ -92,6 +92,14 @@ export default new Vuex.Store({
         })
         .catch((err) => console.log(err));
     },
+    updateByFactoryId(context, payload) {
+      httpClient
+        .update(`/factories/${payload.factory_id}`, payload.data)
+        .then(() => {
+          context.dispatch("getAllFactories");
+        })
+        .catch((err) => console.log(err));
+    },
     getFactoryUnits(context, payload) {
       httpClient
         .get(`/units/${payload}`)
