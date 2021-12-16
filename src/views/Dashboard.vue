@@ -72,7 +72,7 @@ export default {
   padding: 40px 50px;
   display: flex;
   flex-direction: column;
-  gap: 100px;
+  gap: 30px;
 }
 .factory-table-container,
 .unit-table-container {
@@ -82,7 +82,7 @@ export default {
   background-color: var(--primary);
   color: white;
 }
-tbody > tr {
+.factory-table-container tr {
   cursor: pointer;
 }
 

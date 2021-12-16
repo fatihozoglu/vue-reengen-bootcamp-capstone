@@ -1,9 +1,9 @@
 <template>
   <nav class="navbar navbar-expand-sm navbar-dark">
     <div class="w-100 d-flex nav-container">
-      <router-link :to="{ name: 'Home' }">
+      <div class="logo" @click="navigate">
         <img src="../assets/logo.png" alt="Logo" />
-      </router-link>
+      </div>
       <ul class="m-0 ms-auto d-flex align-items-center justify-content-evenly">
         <div v-if="user" @click="goDashboard" class="dashboard-icon">
           <span>Dashboard</span>
@@ -36,6 +36,11 @@ export default {
     ...mapState(["user"]),
   },
   methods: {
+    navigate() {
+      if (!this.user) {
+        this.$router.push({ name: "Home" });
+      }
+    },
     goDashboard() {
       this.$router.push({ name: "Dashboard" });
     },
@@ -50,6 +55,9 @@ export default {
   min-height: 10vh;
   padding-inline: 30px;
   box-shadow: 0px 2px 0px 0px rgba(73, 73, 73, 0.2);
+}
+.logo {
+  cursor: pointer;
 }
 #language {
   height: 25px;

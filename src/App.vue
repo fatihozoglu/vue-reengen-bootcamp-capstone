@@ -19,13 +19,9 @@ export default {
   },
   mounted() {
     if (localStorage.getItem("user") || sessionStorage.getItem("user")) {
-      this.checkTokenValidity()
-        .then(() => {
-          this.$router.push({ name: "Dashboard" });
-        })
-        .catch(() => {
-          this.$router.push({ name: "Login" });
-        });
+      this.checkTokenValidity().then(() => {
+        this.$router.push({ name: "Dashboard" });
+      });
     }
   },
 };
