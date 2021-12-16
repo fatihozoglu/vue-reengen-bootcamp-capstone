@@ -83,9 +83,9 @@ export default new Vuex.Store({
         })
         .catch((err) => console.log(err));
     },
-    getUnits(context) {
+    getFactoryUnits(context, payload) {
       httpClient
-        .get(`/units`)
+        .get(`/units/${payload}`)
         .then((res) => {
           context.commit("SET_UNITS", res.data);
         })
