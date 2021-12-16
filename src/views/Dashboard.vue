@@ -1,16 +1,20 @@
 <template>
   <div class="dashboard">
-    <div v-if="factories" class="factory-table-container">
+    <div
+      v-if="factories && factories.length > 0"
+      class="factory-table-container"
+    >
       <h3 class="text-center">Factories</h3>
       <table class="table">
         <thead>
           <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Membership Start</th>
-            <th scope="col">Membership End</th>
-            <th scope="col">Employee Number</th>
-            <th scope="col">VIP Status</th>
+            <th
+              scope="col"
+              v-for="(key, index) in Object.keys(this.factories[0])"
+              :key="index"
+            >
+              {{ key | convertTableHeading }}
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -25,7 +29,7 @@
             <td>{{ factory.membership_end | convertDate }}</td>
             <td>{{ factory.population }}</td>
             <td>{{ factory.vip | convertVip }}</td>
-            <td v-if="user.role === 'admin'">
+            <td class="icon-container" v-if="user.role === 'admin'">
               <span
                 ><svg
                   class="edit-icon"
@@ -61,25 +65,25 @@
         </tbody>
       </table>
     </div>
-    <div v-if="units" class="unit-table-container">
+    <div v-if="units && units.length > 0" class="unit-table-container">
       <h3 class="text-center">Consumption Details</h3>
       <table class="table">
         <thead>
           <tr>
-            <th scope="col">Unit Id</th>
-            <th scope="col">Unit Name</th>
-            <th scope="col">Consumption Dates</th>
-            <th scope="col">Consumption Amount</th>
-            <th scope="col">Consumption Price</th>
-            <th scope="col">Discount Rate</th>
-            <th scope="col">Total Price</th>
+            <th
+              scope="col"
+              v-for="(key, index) in Object.keys(this.units[0])"
+              :key="index"
+            >
+              {{ key | convertTableHeading }}
+            </th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(unit, index) in units" :key="index">
             <td>{{ unit.unit_id }}</td>
+            <td>{{ unit.factory_id }}</td>
             <td>{{ unit.unit_name }}</td>
-            <td>{{ unit.consumption_date | convertDateRange }}</td>
             <td>{{ unit.consumption_amount }} kWh</td>
             <td>
               {{ unit.consumption_price | convertCurrency }}
@@ -89,7 +93,8 @@
             <td>
               {{ unit.total_price | convertCurrency }} <span>&#8378;</span>
             </td>
-            <td v-if="user.role === 'admin'">
+            <td>{{ unit.consumption_date | convertDateRange }}</td>
+            <td class="icon-container" v-if="user.role === 'admin'">
               <span
                 ><svg
                   class="edit-icon"
@@ -152,7 +157,7 @@ export default {
   filters: {
     convertDate(val) {
       let date = new Date(val);
-      return date.toDateString();
+      return date.toLocaleDateString();
     },
     convertVip(val) {
       if (val) return "VIP";
@@ -165,12 +170,15 @@ export default {
     convertDateRange(val) {
       let newArr = val.slice(1, val.length - 1);
       newArr = newArr.split(",");
-      return `${new Date(newArr[0]).toDateString()} / ${new Date(
+      return `${new Date(newArr[0]).toLocaleDateString()} / ${new Date(
         newArr[1]
-      ).toDateString()}`;
+      ).toLocaleDateString()}`;
     },
     convertCurrency(val) {
       return Number(val).toLocaleString("en-US");
+    },
+    convertTableHeading(val) {
+      return val.split("_").join(" ").toUpperCase();
     },
   },
   created() {
@@ -228,5 +236,8 @@ tbody tr:hover svg {
 .delete-icon:hover {
   cursor: pointer;
   color: rgb(250, 79, 79);
+}
+.icon-container {
+  min-width: 80px;
 }
 </style>
