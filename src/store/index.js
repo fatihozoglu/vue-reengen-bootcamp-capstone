@@ -83,11 +83,36 @@ export default new Vuex.Store({
         })
         .catch((err) => console.log(err));
     },
+    deleteFactoryById(context, payload) {
+      httpClient
+        .delete(`/factories/${payload}`)
+        .then(() => {
+          context.dispatch("getAllFactories");
+          context.dispatch("deleteUnitsByFactoryId", payload);
+        })
+        .catch((err) => console.log(err));
+    },
     getFactoryUnits(context, payload) {
       httpClient
         .get(`/units/${payload}`)
         .then((res) => {
           context.commit("SET_UNITS", res.data);
+        })
+        .catch((err) => console.log(err));
+    },
+    deleteUnitById(context, payload) {
+      httpClient
+        .delete(`/units/${payload.unit_id}`)
+        .then(() => {
+          context.dispatch("getFactoryUnits", payload.factory_id);
+        })
+        .catch((err) => console.log(err));
+    },
+    deleteUnitsByFactoryId(context, payload) {
+      httpClient
+        .delete(`/units/all/${payload}`)
+        .then((res) => {
+          console.log(res);
         })
         .catch((err) => console.log(err));
     },
