@@ -64,10 +64,16 @@
           </tr>
         </tbody>
       </table>
+      <div
+        @click="addNewData(factoryDataType, 'factories')"
+        class="add-data-btn"
+      >
+        Add New Data
+      </div>
     </div>
-    <div v-if="units && units.length > 0" class="unit-table-container">
+    <div class="unit-table-container">
       <h3 class="text-center">Consumption Details</h3>
-      <table class="table">
+      <table v-if="units && units.length > 0" class="table">
         <thead>
           <tr>
             <th
@@ -93,7 +99,6 @@
             <td>
               {{ unit.total_price | convertCurrency }} <span>&#8378;</span>
             </td>
-            <td>{{ unit.consumption_date | convertDateRange }}</td>
             <td class="icon-container" v-if="user.role === 'admin'">
               <span
                 ><svg
@@ -134,25 +139,45 @@
           </tr>
         </tbody>
       </table>
+      <div @click="addNewData(unitDataType, 'units')" class="add-data-btn">
+        Add New Data
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapMutations, mapState } from "vuex";
 
 export default {
   name: "Dashboard",
   computed: {
-    ...mapState(["user", "factories", "units"]),
+    ...mapState([
+      "user",
+      "factories",
+      "units",
+      "unitDataType",
+      "factoryDataType",
+    ]),
   },
   methods: {
+    ...mapMutations(["SET_MODAL"]),
     ...mapActions([
+      "getFactoryDataType",
+      "getUnitDataType",
       "getAllFactories",
       "getFactoryUnits",
       "deleteFactoryById",
       "deleteUnitById",
     ]),
+    addNewData(val, name) {
+      this.SET_MODAL({
+        isOpen: true,
+        type: "addRow",
+        modalData: val,
+        name: name,
+      });
+    },
   },
   filters: {
     convertDate(val) {
@@ -167,13 +192,6 @@ export default {
       if (val) return "20%";
       return "No discount";
     },
-    convertDateRange(val) {
-      let newArr = val.slice(1, val.length - 1);
-      newArr = newArr.split(",");
-      return `${new Date(newArr[0]).toLocaleDateString()} / ${new Date(
-        newArr[1]
-      ).toLocaleDateString()}`;
-    },
     convertCurrency(val) {
       return Number(val).toLocaleString("en-US");
     },
@@ -183,6 +201,8 @@ export default {
   },
   created() {
     this.getAllFactories();
+    this.getFactoryDataType();
+    this.getUnitDataType();
   },
 };
 </script>
@@ -239,5 +259,13 @@ tbody tr:hover svg {
 }
 .icon-container {
   min-width: 80px;
+}
+.add-data-btn {
+  width: max-content;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  background-color: var(--secondary);
+  margin-left: auto;
 }
 </style>

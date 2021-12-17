@@ -10,6 +10,14 @@ export default new Vuex.Store({
     remember: false,
     factories: null,
     units: null,
+    factoryDataType: null,
+    unitDataType: null,
+    modal: {
+      isOpen: false,
+      type: null,
+      modalData: null,
+      name: null,
+    },
   },
   mutations: {
     SET_USER(state, payload) {
@@ -27,6 +35,15 @@ export default new Vuex.Store({
     },
     SET_UNITS(state, payload) {
       state.units = payload;
+    },
+    SET_FACTORY_DATA_TYPE(state, payload) {
+      state.factoryDataType = payload;
+    },
+    SET_UNIT_DATA_TYPE(state, payload) {
+      state.unitDataType = payload;
+    },
+    SET_MODAL(state, payload) {
+      state.modal = { ...payload };
     },
   },
   actions: {
@@ -74,6 +91,38 @@ export default new Vuex.Store({
           context.commit("SET_USER", null);
           return Promise.reject(err.response.status);
         });
+    },
+    getFactoryDataType(context) {
+      httpClient
+        .get("/factories/type")
+        .then((res) => {
+          context.commit("SET_FACTORY_DATA_TYPE", res.data);
+        })
+        .catch((err) => console.log(err));
+    },
+    getUnitDataType(context) {
+      httpClient
+        .get("/units/data/type")
+        .then((res) => {
+          context.commit("SET_UNIT_DATA_TYPE", res.data);
+        })
+        .catch((err) => console.log(err));
+    },
+    createNewFactory(context, payload) {
+      httpClient
+        .post("/factories", payload)
+        .then(() => {
+          context.dispatch("getAllFactories");
+        })
+        .catch((err) => console.log(err));
+    },
+    createNewUnit(context, payload) {
+      httpClient
+        .post("/units", payload)
+        .then(() => {
+          context.dispatch("getFactoryUnits", payload.factory_id);
+        })
+        .catch((err) => console.log(err));
     },
     getAllFactories(context) {
       httpClient

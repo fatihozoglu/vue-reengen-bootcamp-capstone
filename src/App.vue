@@ -1,18 +1,24 @@
 <template>
   <div id="app">
-    <Header></Header>
+    <Header />
+    <NewRowModel v-if="modal.isOpen && modal.type === 'addRow'" />
     <router-view />
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 import Header from "./components/Header.vue";
+import NewRowModel from "./components/NewRowModal.vue";
 
 export default {
   name: "App",
   components: {
     Header,
+    NewRowModel,
+  },
+  computed: {
+    ...mapState(["modal"]),
   },
   methods: {
     ...mapActions(["checkTokenValidity"]),
