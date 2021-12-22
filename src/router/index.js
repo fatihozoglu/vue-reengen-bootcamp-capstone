@@ -43,7 +43,6 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  console.log(to);
   const authRequired = ["/dashboard", "/settings"].includes(to.path);
   const loggedIn = JSON.parse(localStorage.getItem("user"));
 

@@ -62,7 +62,7 @@ export default {
     setInputType(val) {
       return val === "text"
         ? "text"
-        : val === "numeric"
+        : val === "numeric" || val === "integer"
         ? "number"
         : val === "date"
         ? "date"

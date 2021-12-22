@@ -42,7 +42,9 @@ export default {
       }
     },
     goDashboard() {
-      this.$router.push({ name: "Dashboard" });
+      if (this.$route.path !== "/dashboard") {
+        this.$router.push({ name: "Dashboard" });
+      }
     },
   },
 };
