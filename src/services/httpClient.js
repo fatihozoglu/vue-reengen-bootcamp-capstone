@@ -2,7 +2,7 @@ import axios from "axios";
 import authHeader from "./authHeader";
 
 const httpClient = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "https://fozoglu-reengen-capstone-app.herokuapp.com/",
   headers: {
     Accept: "application/json",
   },
