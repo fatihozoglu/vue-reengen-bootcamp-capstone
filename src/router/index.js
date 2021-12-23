@@ -44,7 +44,9 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   const authRequired = ["/dashboard", "/settings"].includes(to.path);
-  const loggedIn = JSON.parse(localStorage.getItem("user"));
+  const loggedIn = JSON.parse(
+    localStorage.getItem("user") || sessionStorage.getItem("user")
+  );
 
   if (authRequired && !loggedIn) {
     return next("/");

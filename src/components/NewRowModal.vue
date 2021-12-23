@@ -1,11 +1,7 @@
 <template>
   <div class="new-row-modal">
     <form class="input-container">
-      <div
-        class="input-group"
-        v-for="(item, index) in modal.modalData"
-        :key="index"
-      >
+      <div class="input-group" v-for="(item, index) in modal.data" :key="index">
         <label
           v-if="!(item.column_name === 'id' || item.column_name === 'unit_id')"
           :for="item.column_name"
@@ -76,8 +72,7 @@ export default {
       }
       this.SET_MODAL({
         isOpen: false,
-        type: null,
-        modalData: null,
+        data: null,
         name: null,
       });
     },

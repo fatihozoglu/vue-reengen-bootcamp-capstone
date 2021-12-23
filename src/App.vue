@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header />
-    <NewRowModel v-if="modal.isOpen && modal.type === 'addRow'" />
+    <NewRowModel v-if="modal.isOpen" />
     <router-view />
   </div>
 </template>

@@ -14,8 +14,7 @@ export default new Vuex.Store({
     unitDataType: null,
     modal: {
       isOpen: false,
-      type: null,
-      modalData: null,
+      data: null,
       name: null,
     },
   },

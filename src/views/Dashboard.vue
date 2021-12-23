@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard">
     <div
-      v-if="factories && factories.length > 0"
+      v-if="factories && factories.length > 0 && factoryDataType"
       class="factory-table-container"
     >
       <h3 class="text-center">Factories</h3>
@@ -10,7 +10,7 @@
           <tr>
             <th
               scope="col"
-              v-for="(key, index) in Object.keys(this.factories[0])"
+              v-for="(key, index) in factoryColumnNames"
               :key="index"
             >
               {{ key | convertTableHeading }}
@@ -23,12 +23,7 @@
             :key="factory.id"
             @click="getFactoryUnits(factory.id)"
           >
-            <td>{{ factory.id }}</td>
-            <td>{{ factory.name }}</td>
-            <td>{{ factory.membership_start | convertDate }}</td>
-            <td>{{ factory.membership_end | convertDate }}</td>
-            <td>{{ factory.population }}</td>
-            <td>{{ factory.vip | convertVip }}</td>
+            <td v-for="(item, index) in factory" :key="index">{{ item }}</td>
             <td class="icon-container" v-if="user.role === 'admin'">
               <span
                 ><svg
@@ -73,12 +68,12 @@
     </div>
     <div class="unit-table-container">
       <h3 class="text-center">Consumption Details</h3>
-      <table v-if="units && units.length > 0" class="table">
+      <table v-if="units && units.length > 0 && unitDataType" class="table">
         <thead>
           <tr>
             <th
               scope="col"
-              v-for="(key, index) in Object.keys(this.units[0])"
+              v-for="(key, index) in unitColumnNames"
               :key="index"
             >
               {{ key | convertTableHeading }}
@@ -87,18 +82,7 @@
         </thead>
         <tbody>
           <tr v-for="(unit, index) in units" :key="index">
-            <td>{{ unit.unit_id }}</td>
-            <td>{{ unit.factory_id }}</td>
-            <td>{{ unit.unit_name }}</td>
-            <td>{{ unit.consumption_amount }} kWh</td>
-            <td>
-              {{ unit.consumption_price | convertCurrency }}
-              <span>&#8378;</span>
-            </td>
-            <td>{{ unit.discount | convertDiscount }}</td>
-            <td>
-              {{ unit.total_price | convertCurrency }} <span>&#8378;</span>
-            </td>
+            <td v-for="(item, index) in unit" :key="index">{{ item }}</td>
             <td class="icon-container" v-if="user.role === 'admin'">
               <span
                 ><svg
@@ -159,6 +143,18 @@ export default {
       "unitDataType",
       "factoryDataType",
     ]),
+    factoryColumnNames() {
+      let newArr = [...this.factoryDataType];
+      newArr.sort((a, b) => a.ordinal_position - b.ordinal_position);
+      let result = newArr.map((item) => item.column_name);
+      return result;
+    },
+    unitColumnNames() {
+      let newArr = [...this.unitDataType];
+      newArr.sort((a, b) => a.ordinal_position - b.ordinal_position);
+      let result = newArr.map((item) => item.column_name);
+      return result;
+    },
   },
   methods: {
     ...mapMutations(["SET_MODAL"]),
@@ -173,8 +169,7 @@ export default {
     addNewData(val, name) {
       this.SET_MODAL({
         isOpen: true,
-        type: "addRow",
-        modalData: val,
+        data: val.sort((a, b) => a.ordinal_position - b.ordinal_position),
         name: name,
       });
     },
