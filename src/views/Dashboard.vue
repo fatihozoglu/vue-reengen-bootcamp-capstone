@@ -61,6 +61,7 @@
         </tbody>
       </table>
       <div
+        v-if="user.role === 'admin'"
         @click="addNewData(factoryDataType, 'factories')"
         class="add-data-btn"
       >
@@ -125,7 +126,11 @@
           </tr>
         </tbody>
       </table>
-      <div @click="addNewData(unitDataType, 'units')" class="add-data-btn">
+      <div
+        v-if="user.role === 'admin'"
+        @click="addNewData(unitDataType, 'units')"
+        class="add-data-btn"
+      >
         Add New Data
       </div>
     </div>
