@@ -27,6 +27,7 @@
             <td class="icon-container" v-if="user.role === 'admin'">
               <span
                 ><svg
+                  @click="editData(factoryDataType, 'factories', factory)"
                   class="edit-icon"
                   width="20"
                   height="20"
@@ -86,6 +87,7 @@
             <td class="icon-container" v-if="user.role === 'admin'">
               <span
                 ><svg
+                  @click="editData(unitDataType, 'units', unit)"
                   class="edit-icon"
                   width="20"
                   height="20"
@@ -166,11 +168,20 @@ export default {
       "deleteFactoryById",
       "deleteUnitById",
     ]),
-    addNewData(val, name) {
+    addNewData(data, name) {
       this.SET_MODAL({
         isOpen: true,
-        data: val.sort((a, b) => a.ordinal_position - b.ordinal_position),
+        data: data.sort((a, b) => a.ordinal_position - b.ordinal_position),
         name: name,
+        values: null,
+      });
+    },
+    editData(data, name, values) {
+      this.SET_MODAL({
+        isOpen: true,
+        data: data.sort((a, b) => a.ordinal_position - b.ordinal_position),
+        name: name,
+        values: values,
       });
     },
   },

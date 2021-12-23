@@ -24,7 +24,7 @@
           Cancel
         </button>
         <button
-          @click.prevent="createNewData"
+          @click.prevent="modal.values !== null ? editData() : createNewData()"
           type="submit"
           class="btn btn-success"
         >
@@ -54,7 +54,12 @@ export default {
   },
   methods: {
     ...mapMutations(["SET_MODAL"]),
-    ...mapActions(["createNewFactory", "createNewUnit"]),
+    ...mapActions([
+      "createNewFactory",
+      "createNewUnit",
+      "editFactoryData",
+      "editUnitData",
+    ]),
     setInputType(val) {
       return val === "text"
         ? "text"
@@ -74,8 +79,26 @@ export default {
         isOpen: false,
         data: null,
         name: null,
+        values: null,
       });
     },
+    editData() {
+      if (this.modal.name === "factories") {
+        this.editFactoryData(this.newRow);
+      } else {
+        this.editUnitData(this.newRow);
+      }
+      this.SET_MODAL({
+        isOpen: false,
+        data: null,
+        name: null,
+        values: null,
+      });
+    },
+  },
+  created() {
+    if (this.modal.values) this.newRow = { ...this.modal.values };
+    else this.newRow = {};
   },
 };
 </script>

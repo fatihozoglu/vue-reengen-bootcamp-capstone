@@ -16,6 +16,7 @@ export default new Vuex.Store({
       isOpen: false,
       data: null,
       name: null,
+      values: "",
     },
   },
   mutations: {
@@ -140,9 +141,9 @@ export default new Vuex.Store({
         })
         .catch((err) => console.log(err));
     },
-    updateByFactoryId(context, payload) {
+    editFactoryData(context, payload) {
       httpClient
-        .update(`/factories/${payload.factory_id}`, payload.data)
+        .put(`/factories/${payload.id}`, payload)
         .then(() => {
           context.dispatch("getAllFactories");
         })
@@ -169,6 +170,14 @@ export default new Vuex.Store({
         .delete(`/units/all/${payload}`)
         .then((res) => {
           console.log(res);
+        })
+        .catch((err) => console.log(err));
+    },
+    editUnitData(context, payload) {
+      httpClient
+        .put(`/units/${payload.unit_id}`, payload)
+        .then(() => {
+          context.dispatch("getFactoryUnits", payload.factory_id);
         })
         .catch((err) => console.log(err));
     },
