@@ -181,6 +181,24 @@ export default new Vuex.Store({
         })
         .catch((err) => console.log(err));
     },
+    deleteFactoryColumn(context, payload) {
+      httpClient
+        .delete(`/factories/column/delete/${payload}`)
+        .then(() => {
+          context.dispatch("getFactoryDataType");
+          context.dispatch("getAllFactories");
+        })
+        .catch((err) => console.log(err));
+    },
+    deleteUnitColumn(context, payload) {
+      httpClient
+        .delete(`/units/column/delete/${payload.name}`)
+        .then(() => {
+          context.dispatch("getUnitDataType");
+          context.dispatch("getFactoryUnits", payload.factory_id);
+        })
+        .catch((err) => console.log(err));
+    },
   },
   modules: {},
 });

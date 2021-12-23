@@ -14,6 +14,20 @@
               :key="index"
             >
               {{ key | convertTableHeading }}
+              <span>
+                <svg
+                  @click="deleteFactoryColumn(key)"
+                  class="delete-icon-column ms-3"
+                  width="20"
+                  height="20"
+                  fill="currentColor"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"
+                  />
+                </svg>
+              </span>
             </th>
           </tr>
         </thead>
@@ -79,6 +93,25 @@
               :key="index"
             >
               {{ key | convertTableHeading }}
+              <span>
+                <svg
+                  @click="
+                    deleteUnitColumn({
+                      name: key,
+                      factory_id: units.factory_id,
+                    })
+                  "
+                  class="delete-icon-column ms-3"
+                  width="20"
+                  height="20"
+                  fill="currentColor"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"
+                  />
+                </svg>
+              </span>
             </th>
           </tr>
         </thead>
@@ -172,6 +205,8 @@ export default {
       "getFactoryUnits",
       "deleteFactoryById",
       "deleteUnitById",
+      "deleteFactoryColumn",
+      "deleteUnitColumn",
     ]),
     addNewData(data, name) {
       this.SET_MODAL({
@@ -260,11 +295,18 @@ svg {
 tbody tr:hover svg {
   visibility: visible;
 }
+thead th:hover .delete-icon-column {
+  visibility: visible;
+}
 .edit-icon:hover {
   cursor: pointer;
   color: var(--secondary);
 }
 .delete-icon:hover {
+  cursor: pointer;
+  color: rgb(250, 79, 79);
+}
+.delete-icon-column:hover {
   cursor: pointer;
   color: rgb(250, 79, 79);
 }
