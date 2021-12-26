@@ -107,11 +107,13 @@ export default {
 <style scoped>
 .new-row-modal {
   position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
   backdrop-filter: blur(5px);
 }
 .input-container {

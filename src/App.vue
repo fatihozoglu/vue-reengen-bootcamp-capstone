@@ -2,7 +2,7 @@
   <div id="app">
     <Header />
     <NewRowModal v-if="modal.isOpen" />
-    <NewColumnModal v-if="columnModal.isOpen" class="column-modal" />
+    <NewColumnModal v-if="columnModal.isOpen" />
     <router-view />
   </div>
 </template>
