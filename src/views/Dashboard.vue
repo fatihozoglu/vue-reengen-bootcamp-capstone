@@ -1,10 +1,16 @@
 <template>
-  <div class="dashboard">
+  <div v-if="user" class="dashboard">
     <div
       v-if="factories && factories.length > 0 && factoryDataType"
       class="factory-table-container"
     >
       <h3 class="text-center">Factories</h3>
+      <button
+        @click="openNewColumnModal('factories')"
+        class="btn btn-primary d-block ms-auto"
+      >
+        Add New Column
+      </button>
       <table class="table">
         <thead>
           <tr>
@@ -84,6 +90,13 @@
     </div>
     <div class="unit-table-container">
       <h3 class="text-center">Consumption Details</h3>
+      <button
+        v-if="units"
+        @click="openNewColumnModal('units')"
+        class="btn btn-primary d-block ms-auto"
+      >
+        Add New Column
+      </button>
       <table v-if="units && units.length > 0 && unitDataType" class="table">
         <thead>
           <tr>
@@ -197,7 +210,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(["SET_MODAL"]),
+    ...mapMutations(["SET_MODAL", "SET_COLUMN_MODAL"]),
     ...mapActions([
       "getFactoryDataType",
       "getUnitDataType",
@@ -223,6 +236,9 @@ export default {
         name: name,
         values: values,
       });
+    },
+    openNewColumnModal(val) {
+      this.SET_COLUMN_MODAL({ isOpen: true, table: val });
     },
   },
   filters: {

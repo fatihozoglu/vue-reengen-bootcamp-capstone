@@ -18,6 +18,10 @@ export default new Vuex.Store({
       name: null,
       values: "",
     },
+    columnModal: {
+      isOpen: false,
+      table: null,
+    },
   },
   mutations: {
     SET_USER(state, payload) {
@@ -44,6 +48,9 @@ export default new Vuex.Store({
     },
     SET_MODAL(state, payload) {
       state.modal = { ...payload };
+    },
+    SET_COLUMN_MODAL(state, payload) {
+      state.columnModal = { ...payload };
     },
   },
   actions: {
@@ -196,6 +203,23 @@ export default new Vuex.Store({
         .then(() => {
           context.dispatch("getUnitDataType");
           context.dispatch("getFactoryUnits", payload.factory_id);
+        })
+        .catch((err) => console.log(err));
+    },
+    createNewColumn(context, payload) {
+      return httpClient
+        .post(`/${context.state.columnModal.table}/column/new`, payload)
+        .then(() => {
+          if (context.state.columnModal.table === "factories") {
+            context.dispatch("getFactoryDataType");
+            context.dispatch("getAllFactories");
+          } else {
+            context.dispatch("getUnitDataType");
+            context.dispatch(
+              "getFactoryUnits",
+              context.state.units[0].factory_id
+            );
+          }
         })
         .catch((err) => console.log(err));
     },

@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <Header />
-    <NewRowModel v-if="modal.isOpen" />
+    <NewRowModal v-if="modal.isOpen" />
+    <NewColumnModal v-if="columnModal.isOpen" class="column-modal" />
     <router-view />
   </div>
 </template>
@@ -9,16 +10,18 @@
 <script>
 import { mapActions, mapState } from "vuex";
 import Header from "./components/Header.vue";
-import NewRowModel from "./components/NewRowModal.vue";
+import NewRowModal from "./components/NewRowModal.vue";
+import NewColumnModal from "./components/NewColumnModal.vue";
 
 export default {
   name: "App",
   components: {
     Header,
-    NewRowModel,
+    NewRowModal,
+    NewColumnModal,
   },
   computed: {
-    ...mapState(["modal"]),
+    ...mapState(["modal", "columnModal"]),
   },
   methods: {
     ...mapActions(["checkTokenValidity"]),
