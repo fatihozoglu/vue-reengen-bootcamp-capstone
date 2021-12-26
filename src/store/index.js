@@ -135,7 +135,16 @@ export default new Vuex.Store({
       httpClient
         .get("/factories")
         .then((res) => {
-          context.commit("SET_FACTORIES", res.data);
+          let data = res.data.map((item) => {
+            item.membership_start = new Date(
+              item.membership_start
+            ).toLocaleDateString();
+            item.membership_end = new Date(
+              item.membership_end
+            ).toLocaleDateString();
+            return item;
+          });
+          context.commit("SET_FACTORIES", data);
         })
         .catch((err) => console.log(err));
     },
@@ -199,10 +208,13 @@ export default new Vuex.Store({
     },
     deleteUnitColumn(context, payload) {
       httpClient
-        .delete(`/units/column/delete/${payload.name}`)
+        .delete(`/units/column/delete/${payload}`)
         .then(() => {
           context.dispatch("getUnitDataType");
-          context.dispatch("getFactoryUnits", payload.factory_id);
+          context.dispatch(
+            "getFactoryUnits",
+            context.state.units[0].factory_id
+          );
         })
         .catch((err) => console.log(err));
     },

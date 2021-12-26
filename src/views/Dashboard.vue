@@ -6,6 +6,7 @@
     >
       <h3 class="text-center">Factories</h3>
       <button
+        v-if="user.role === 'admin'"
         @click="openNewColumnModal('factories')"
         class="btn btn-primary d-block ms-auto"
       >
@@ -91,7 +92,7 @@
     <div class="unit-table-container">
       <h3 class="text-center">Consumption Details</h3>
       <button
-        v-if="units"
+        v-if="units && user.role === 'admin'"
         @click="openNewColumnModal('units')"
         class="btn btn-primary d-block ms-auto"
       >
@@ -108,12 +109,7 @@
               {{ key | convertTableHeading }}
               <span v-if="user.role === 'admin'">
                 <svg
-                  @click="
-                    deleteUnitColumn({
-                      name: key,
-                      factory_id: units.factory_id,
-                    })
-                  "
+                  @click="deleteUnitColumn(key)"
                   class="delete-icon-column ms-3"
                   width="20"
                   height="20"
@@ -130,7 +126,9 @@
         </thead>
         <tbody>
           <tr v-for="(unit, index) in units" :key="index">
-            <td v-for="(item, index) in unit" :key="index">{{ item }}</td>
+            <td v-for="(item, index) in unit" :key="index">
+              {{ item | formatUnits(index) }}
+            </td>
             <td class="icon-container" v-if="user.role === 'admin'">
               <span
                 ><svg
@@ -242,23 +240,25 @@ export default {
     },
   },
   filters: {
-    convertDate(val) {
-      let date = new Date(val);
-      return date.toLocaleDateString();
-    },
-    convertVip(val) {
-      if (val) return "VIP";
-      return "NOT VIP";
-    },
-    convertDiscount(val) {
-      if (val) return "20%";
-      return "No discount";
-    },
     convertCurrency(val) {
       return Number(val).toLocaleString("en-US");
     },
     convertTableHeading(val) {
       return val.split("_").join(" ").toUpperCase();
+    },
+    formatUnits(val, index) {
+      switch (index) {
+        case "consumption_amount":
+          return `${val} kWh`;
+        case "consumption_price":
+          return `${Number(val).toLocaleString("en-US")} $`;
+        case "discount":
+          return val ? "20%" : "No Discount";
+        case "total_price":
+          return `${Number(val).toLocaleString("en-US")} $`;
+        default:
+          return val;
+      }
     },
   },
   created() {
