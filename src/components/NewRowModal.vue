@@ -97,7 +97,7 @@ export default {
     },
   },
   created() {
-    if (this.modal.values) {
+    if (this.modal.values && this.modal.name === "factories") {
       const tempObject = { ...this.modal.values };
       tempObject.membership_start = new Date(tempObject.membership_start);
       tempObject.membership_start.setDate(
@@ -115,6 +115,8 @@ export default {
         .toISOString()
         .split("T")[0];
       this.newRow = { ...tempObject };
+    } else if (this.modal.values && this.modal.name === "units") {
+      this.newRow = { ...this.modal.values };
     } else this.newRow = {};
   },
 };
