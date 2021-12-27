@@ -97,8 +97,25 @@ export default {
     },
   },
   created() {
-    if (this.modal.values) this.newRow = { ...this.modal.values };
-    else this.newRow = {};
+    if (this.modal.values) {
+      const tempObject = { ...this.modal.values };
+      tempObject.membership_start = new Date(tempObject.membership_start);
+      tempObject.membership_start.setDate(
+        tempObject.membership_start.getDate() + 1
+      );
+      tempObject.membership_start = tempObject.membership_start
+        .toISOString()
+        .split("T")[0];
+
+      tempObject.membership_end = new Date(tempObject.membership_end);
+      tempObject.membership_end.setDate(
+        tempObject.membership_end.getDate() + 1
+      );
+      tempObject.membership_end = tempObject.membership_end
+        .toISOString()
+        .split("T")[0];
+      this.newRow = { ...tempObject };
+    } else this.newRow = {};
   },
 };
 </script>

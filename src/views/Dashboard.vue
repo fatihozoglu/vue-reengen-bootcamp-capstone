@@ -21,7 +21,7 @@
               :key="index"
             >
               {{ key | convertTableHeading }}
-              <span v-if="user.role === 'admin'">
+              <span v-if="user.role === 'admin' && key !== 'id'">
                 <svg
                   @click="deleteFactoryColumn(key)"
                   class="delete-icon-column ms-3"
@@ -107,7 +107,7 @@
               :key="index"
             >
               {{ key | convertTableHeading }}
-              <span v-if="user.role === 'admin'">
+              <span v-if="user.role === 'admin' && key !== 'unit_id'">
                 <svg
                   @click="deleteUnitColumn(key)"
                   class="delete-icon-column ms-3"
